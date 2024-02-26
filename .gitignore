@@ -1,4 +1,6 @@
-.index.py
 
 # Ignore the AI Modals
 AI_Model/
+
+# Ignore the media files
+media/
