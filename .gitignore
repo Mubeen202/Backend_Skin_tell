@@ -1,4 +1,4 @@
 .index.py
 
-# Ignore the virtual environment directory
-venv/
+# Ignore the AI Modals
+AI_Model/
