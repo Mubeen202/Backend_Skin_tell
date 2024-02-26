@@ -97,8 +97,12 @@ WSGI_APPLICATION = 'skin_tell.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'skin_tell',
+        'USER': 'skin_tell_admin',
+        'PASSWORD': 'skin_tell_admin',
+        'HOST': 'localhost',  # Or the hostname of your MySQL server
+        'PORT': '3306',       # Default MySQL port
     }
 }
 
