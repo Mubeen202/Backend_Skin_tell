@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+#Stripe Configrations
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'post',
+    'payments',
     'rest_framework',  # for rest api
     'corsheaders',  # for cors policies
 ]
@@ -67,7 +75,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = [
     '127.0.0.1',  # Add localhost
     'localhost',  # Add localhost without the port
-    '192.168.0.105',  # Add the IP address of your server
+    '192.168.0.101',  # Add the IP address of your server
+    '192.168.0.102',
+    '192.168.0.103',
+    '192.168.0.104',
+    '192.168.0.105',
+    '192.168.0.106',
+    '192.168.0.107',
+    '192.168.0.108',
     # Add other allowed hosts as needed
 ]
 
