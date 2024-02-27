@@ -51,10 +51,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'post',
-    'payments',
+    'post', #UPLOAD IMAGE AND GET PREDICTIONS
+    'payments', # STRIPE
     'rest_framework',  # for rest api
     'corsheaders',  # for cors policies
+    'storages', # AWS S3 Bucket 
 ]
 
 
@@ -165,4 +166,10 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#AWS CONFIGRATIONS 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+AWS_ACCESS_KEY_ID = 'AKIA35WVEAZ32Y2NBQMZ'
+AWS_SECRET_ACCESS_KEY ='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'
+AWS_STORAGE_BUCKET_NAME = 'skintellmediafiles'
+AWS_QUERYSTRING_AUTH = False
