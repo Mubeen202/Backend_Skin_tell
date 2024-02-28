@@ -56,9 +56,18 @@ INSTALLED_APPS = [
     'rest_framework',  # for rest api
     'corsheaders',  # for cors policies
     'storages', # AWS S3 Bucket 
+    #0AUTH
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    #users 
+    'users'
 ]
 
 
+LOGIN_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -69,6 +78,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Other middleware AccountMiddleware...
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -88,6 +99,43 @@ ALLOWED_HOSTS = [
 ]
 
 ROOT_URLCONF = 'skin_tell.urls'
+
+
+#Configure authentication backends and URLs
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+#Specify User Model
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Google OAuth Configuration
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
+
+# Facebook OAuth Configuration
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'email',
+            'name',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v10.0',
+    }
+}
+
 
 TEMPLATES = [
     {
