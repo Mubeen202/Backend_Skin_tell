@@ -68,6 +68,9 @@ ALLOWED_HOSTS = [
     '127.0.0.1',  # Add localhost
     'localhost',  # Add localhost without the port
     '192.168.0.105',  # Add the IP address of your server
+    '192.168.0.30',
+    "192.168.0.178"
+
     # Add other allowed hosts as needed
 ]
 
@@ -95,17 +98,23 @@ WSGI_APPLICATION = 'skin_tell.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'skin_tell',
+#         'USER': 'skin_tell_admin',
+#         'PASSWORD': 'skin_tell_admin',
+#         'HOST': 'localhost',  # Or the hostname of your MySQL server
+#         'PORT': '3306',       # Default MySQL port
+#     }
+# }
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'skin_tell',
-        'USER': 'skin_tell_admin',
-        'PASSWORD': 'skin_tell_admin',
-        'HOST': 'localhost',  # Or the hostname of your MySQL server
-        'PORT': '3306',       # Default MySQL port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(PROJECT_DIR, 'yourdatabasename.db'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

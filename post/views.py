@@ -15,7 +15,11 @@ from PIL import Image
 from tensorflow.keras.preprocessing import image
 import cv2
 import pandas as pd
-from tensorflow.keras.applications import  VGG19,EfficientNetB0,VGG16,InceptionV3,ResNet50,EfficientNetB3
+from tensorflow.keras.applications import  VGG19,EfficientNetB0,VGG16,InceptionV3,ResNet50,EfficientNetB3, EfficientNetV2L
+
+from .skintypemodel import skint_type_model
+
+
 # Get the absolute path to the model file
 model_path = os.path.join(os.getcwd(), 'AI_Model', 'FNAI_cosmetic_model.h5')
 model_path2 = os.path.join(os.getcwd(), 'AI_Model', 'FNAI_type_model.h5')
@@ -23,7 +27,7 @@ model_path2 = os.path.join(os.getcwd(), 'AI_Model', 'FNAI_type_model.h5')
 # Load the Keras model
 model1 = keras.models.load_model(model_path)
 model2 = keras.models.load_model(model_path2)
-vgg_model1 = EfficientNetB0(weights = 'imagenet',  include_top = False, input_shape = (180,180, 3)) 
+vgg_model1 = EfficientNetV2L(weights = 'imagenet',  include_top = False, input_shape = (180,180, 3), include_preprocessing=True) 
 # Function to classify image and print results
 def classify_image(img): 
     new_size = (180, 180)
@@ -63,29 +67,40 @@ def classify_type(img):
     image=resized_img
     img_array = np.asarray(image)
     img_array = img_array[np.newaxis, ...]
-    features_test=vgg_model.predict(img_array)
-    num_test2=img_array.shape[0]
-    x_t=features_test.reshape(num_test2,-1)
-    probs = model2.predict(x_t)  # Make predictions using the model
-    predctionClass = np.argmax(probs, axis = 1)
-
-    total = np.sum(probs)  # Total probability sum for normalization
-    percentages = (probs / total) * 100
-    for i, percentage in enumerate(percentages[0]):
+    model = skint_type_model()
+    pred = model.predict(img_array)
+    pred = np.argmax(pred, axis=1)
+    # print(pred)
+    mapper = {0:"Dry Skin", 1: "Normal Skin", 2 : "Oily Skin"}
         
-        # print(f"Class {i + 1}: {percentage:.2f}%")
-        if (percentages[0][0] > 15 and percentages[0][0] < 80 and percentages[0][1] > 15 and percentages[0][1] < 80):
-            return(" MIXED SKIN")
-        elif(percentages[0][3] > 15 and percentages[0][3] < 80 and percentages[0][1] > 15 and percentages[0][1] < 80):
-            return(" MIXED SKIN")
-        elif(predctionClass == 0):
-            return(" DRY SKIN")
-        elif(predctionClass == 1):
-            return(" OILY SKIN")
-        elif(predctionClass == 2):
-            return(" SENSITIVE SKIN")
-        elif(predctionClass == 3):
-            return(" NORMAL SKIN")    
+    return mapper.get(pred[0])
+   
+ 
+    
+    
+    # features_test=vgg_model.predict(img_array)
+    # num_test2=img_array.shape[0]
+    # x_t=features_test.reshape(num_test2,-1)
+    # probs = model2.predict(x_t)  # Make predictions using the model
+    # predctionClass = np.argmax(probs, axis = 1)
+
+    # total = np.sum(probs)  # Total probability sum for normalization
+    # percentages = (probs / total) * 100
+    # for i, percentage in enumerate(percentages[0]):
+        
+    #     # print(f"Class {i + 1}: {percentage:.2f}%")
+    #     if (percentages[0][0] > 15 and percentages[0][0] < 80 and percentages[0][1] > 15 and percentages[0][1] < 80):
+    #         return(" MIXED SKIN")
+    #     elif(percentages[0][3] > 15 and percentages[0][3] < 80 and percentages[0][1] > 15 and percentages[0][1] < 80):
+    #         return(" MIXED SKIN")
+    #     elif(predctionClass == 0):
+    #         return(" DRY SKIN")
+    #     elif(predctionClass == 1):
+    #         return(" OILY SKIN")
+    #     elif(predctionClass == 2):
+    #         return(" SENSITIVE SKIN")
+    #     elif(predctionClass == 3):
+    #         return(" NORMAL SKIN")    
         
     
 
