@@ -3,7 +3,7 @@ import os
 import tensorflow as tf
 from tensorflow.keras.applications import MobileNetV3Small
 
-
+s
 
 def skint_type_model():
     weights = os.path.join(os.getcwd(), "AI_Model", "skintypemodel_v1.weights.h5")

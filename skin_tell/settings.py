@@ -34,6 +34,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# settings.py
+AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 
@@ -44,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'post',
+    'products',
     'rest_framework',  # for rest api
     'corsheaders',  # for cors policies
 ]
@@ -108,11 +112,25 @@ WSGI_APPLICATION = 'skin_tell.wsgi.application'
 #         'PORT': '3306',       # Default MySQL port
 #     }
 # }
-PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+# PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(PROJECT_DIR, 'yourdatabasename.db'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_DIR, 'yourdatabasename.db'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'skin_tell',
+        'USER': 'skin_tell',
+        'PASSWORD': 'skin_tell',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
