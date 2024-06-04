@@ -11,7 +11,7 @@ from rest_framework import status
 # import random
 # import os,keras
 # import numpy as np
-# from PIL import Image
+from PIL import Image
 # from tensorflow.keras.preprocessing import image
 # import cv2
 # import pandas as pd

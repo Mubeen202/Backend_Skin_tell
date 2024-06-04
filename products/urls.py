@@ -36,7 +36,7 @@ urlpatterns = [
         'get': 'list',
         'post': 'create'
     })),
-    path('review/<str:pk>', ReviewViewSet.as_view({
+    path('review/<str:pk>', ReviewViewSet .as_view({
         'get': 'retrieve',
         'put': 'update',
         'delete': 'destroy'
